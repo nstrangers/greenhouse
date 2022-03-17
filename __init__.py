@@ -3,9 +3,9 @@ import json
 from datetime import datetime
 import plotly
 import plotly.graph_objs as go
+#import plotly_express as px
 import plotly.express as px
 from plotly.subplots import make_subplots
-import plotly.express as px
 import pandas as pd
 import numpy as np
 
@@ -17,11 +17,9 @@ def index():
     # Открываем файл, считываем станые данные
     with open('data.json') as json_file:
         data = json.load(json_file)
-#    x = np.arange(0,100)
+    # Формируем график давления
     x = data['Date']
     y = data['Parameters'][2]['Pressure']
-#    print(x, len(x))
-#    print(y, len(y))
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=x, y=y, mode='lines+markers', name=''))
     fig.update_yaxes(range=[740, 780])
@@ -32,10 +30,33 @@ def index():
                       yaxis_title="",
                       margin=dict(l=0, r=0, t=30, b=0))
     fig.update_traces(hoverinfo="all", hovertemplate="Давление: %{y}<br>Дата: %{x}")
-    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    graphJSON_Pressure = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+# Формируем график влажности
+    x = np.array(data['Date'])
+    y = np.array(data['Parameters'][1]['Humidity'])
+    print(x)
+    print(y)
+
+    fig = px.bar(y=y)
 
 
-    return render_template('dashboard.html',data=data, graphJSON=graphJSON, name_page='Weather Dashboard', active_page='main')
+#    fig = go.Figure()
+#    fig.add_trace(go.Scatter(x=x, y=y, mode='lines+markers', name=''))
+#    fig.update_yaxes(range=[0, 100])
+    fig.update_layout(legend_orientation="h",
+                      legend=dict(x=.5, xanchor="center"),
+                      title="Ф, %",
+                     xaxis_title="Дата",
+                      yaxis_title="",
+                      margin=dict(l=0, r=0, t=30, b=0))
+    fig.update_traces(hoverinfo="all", hovertemplate="Влажность: %{y}<br>Дата: %{x}")
+
+    graphJSON_Humidity = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+
+
+    return render_template('dashboard.html',data=data, graphJSON_Pressure=graphJSON_Pressure, graphJSON_Humidity=graphJSON_Humidity, name_page='Weather Dashboard', active_page='main')
 
 @app.route('/greenhouse/')
 def greenhouse():

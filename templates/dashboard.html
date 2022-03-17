@@ -117,13 +117,15 @@
                 <p class="card-category">последние 72 часа</p>
               </div>
               <div class="card-body ">
-                <div id='Pressure' class='chart'></div>
+                <div id='Pressure' class='chart'>
+                  <!-- Тут выводится график давления -->
+                </div>
 
               </div>
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                  <i class="fa fa-history"></i> Последнее обновление: {{ data['Date'][-1][:10] }} {{ data['Date'][-1][12:20] }}
+                  <i class="fa fa-history"></i> Последнее обновление: {{ data['Date'][-1][:10] }} {{ data['Date'][-1][11:20] }}
                 </div>
               </div>
             </div>
@@ -156,11 +158,13 @@
           <div class="col-md-8">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-title">NASDAQ: AAPL</h5>
-                <p class="card-category">Line Chart with Points</p>
+                <h5 class="card-title">Влажность:</h5>
+                <p class="card-category">Последние 72 часа</p>
               </div>
               <div class="card-body">
-                <canvas id="speedChart" width="400" height="100"></canvas>
+                <div id='Humidity' class='chart'>
+                  <!-- Тут выводится график влажности -->
+                </div>
               </div>
               <div class="card-footer">
                 <div class="chart-legend">

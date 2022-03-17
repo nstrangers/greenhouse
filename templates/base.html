@@ -130,7 +130,14 @@
 
  <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type='text/javascript'>
-  var graphs = {{graphJSON | safe}};
+  var graphs = {{graphJSON_Pressure | safe}};
   Plotly.plot('Pressure',graphs,{});
 </script>
+
+<script type='text/javascript'>
+  var graphs = {{graphJSON_Humidity | safe}};
+  Plotly.plot('Humidity',graphs,{});
+</script>
+
+Humidity
 </html>
